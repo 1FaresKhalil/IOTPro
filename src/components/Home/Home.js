@@ -12,7 +12,7 @@ const dummyExpenses = [
     id: "e1",
     title: "Skrit ",
     amount: 94,
-    date: new Date(2020, 7, 14),
+    date: new Date(2022, 7, 14),
   },
   { id: "e2", title: "Shoes", amount: 799, date: new Date(2021, 2, 12) },
   {
