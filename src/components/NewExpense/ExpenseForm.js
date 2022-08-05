@@ -5,6 +5,8 @@ const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
+  const [time, setTime] = useState("");
+  const [remaning, setRemaning] = useState("");
   const titleChangeHandler = (event) => {
     setEnteredTitle(event.target.value);
   };
@@ -14,17 +16,27 @@ const ExpenseForm = (props) => {
   const amountChangeHandler = (event) => {
     setEnteredAmount(event.target.value);
   };
+  const timeChangeHandler = (event) => {
+    setTime(event.target.value);
+  };
+  const remaningChangeHandler = (event) => {
+    setRemaning(event.target.value);
+  };
   const submitHandler = (event) => {
     event.preventDefault();
     const expenseData = {
       title: enteredTitle,
       amount: +enteredAmount,
       date: new Date(enteredDate),
+      time: time,
+      remaning: remaning,
     };
     props.onSaveExpense(expenseData);
     setEnteredTitle("");
     setEnteredAmount("");
     setEnteredDate("");
+    setTime("");
+    setRemaning("");
   };
   return (
     <div>
@@ -46,6 +58,26 @@ const ExpenseForm = (props) => {
               min="0.01"
               step="0.01"
               onChange={amountChangeHandler}
+            />
+          </div>
+          <div className="new-expense__control">
+            <label>Time Taken</label>
+            <input
+              value={time}
+              type="number"
+              min="0.01"
+              step="0.01"
+              onChange={timeChangeHandler}
+            />
+          </div>
+          <div className="new-expense__control">
+            <label>Remaining Amount</label>
+            <input
+              value={remaning}
+              type="number"
+              min="0.01"
+              step="0.01"
+              onChange={remaningChangeHandler}
             />
           </div>
           <div className="new-expense__control">

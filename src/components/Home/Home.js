@@ -13,6 +13,8 @@ const dummyExpenses = [
     title: "Skrit ",
     amount: 94,
     date: new Date(2022, 7, 14),
+    remaning: "20",
+    time: "1",
   },
   { id: "e2", title: "Shoes", amount: 799, date: new Date(2021, 2, 12) },
   {
@@ -20,12 +22,16 @@ const dummyExpenses = [
     title: "T-shirt",
     amount: 294,
     date: new Date(2021, 2, 28),
+    remaning: "20",
+    time: "1",
   },
   {
     id: "e4",
     title: "Shrit",
     amount: 450,
     date: new Date(2021, 5, 12),
+    remaning: "20",
+    time: "1",
   },
 ];
 const Home = (props) => {
