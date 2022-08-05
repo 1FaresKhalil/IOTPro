@@ -1,0 +1,9 @@
+.header {
+
+}
+.header div h1 {
+  font-size: 3rem;
+  color: #f5f2f6;
+  font-weight: bold;
+  text-shadow: 10px 10px 10px #00000055;
+}
