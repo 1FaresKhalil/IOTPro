@@ -51,16 +51,6 @@ const ExpenseForm = (props) => {
             />
           </div>
           <div className="new-expense__control">
-            <label>Amount</label>
-            <input
-              value={enteredAmount}
-              type="number"
-              min="0.01"
-              step="0.01"
-              onChange={amountChangeHandler}
-            />
-          </div>
-          <div className="new-expense__control">
             <label>Time Taken</label>
             <input
               value={time}
@@ -80,6 +70,17 @@ const ExpenseForm = (props) => {
               onChange={remaningChangeHandler}
             />
           </div>
+
+          <div className="new-expense__control">
+            <label>Done Amount</label>
+            <input
+              value={enteredAmount}
+              type="number"
+              min="0.01"
+              step="0.01"
+              onChange={amountChangeHandler}
+            />
+          </div>
           <div className="new-expense__control">
             <label>Date</label>
             <input
@@ -92,7 +93,12 @@ const ExpenseForm = (props) => {
           </div>
         </div>
         <div className="new-expense__actions">
-          <button onClick={props.cancelFormHandler}>Cancel</button>
+          <button
+            style={{ marginBottom: "8px" }}
+            onClick={props.cancelFormHandler}
+          >
+            Cancel
+          </button>
           <button type="submit">Add Finished Task</button>
         </div>
       </form>
