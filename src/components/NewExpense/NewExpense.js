@@ -11,8 +11,7 @@ const NewExpense = (props) => {
     setClicked(false);
   };
   const saveExpenseHandler = (expense) => {
-    const expenses = { ...expense, id: Math.random() };
-    props.onAddExpense(expenses);
+    props.onAddExpense(expense);
     setClicked(false);
   };
   return (

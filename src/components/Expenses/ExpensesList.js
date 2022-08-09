@@ -4,11 +4,7 @@ import ExpenseItem from "./ExpenseItem";
 import "./ExpensesList.css";
 const ExpensesList = (props) => {
   if (props.items.length === 0) {
-    return (
-      <h2 className="expenses-list__fallback">
-        No Expenses found in this year
-      </h2>
-    );
+    return <h2 className="expenses-list__fallback">No Transactions Yet</h2>;
   }
 
   return (
@@ -19,8 +15,6 @@ const ExpensesList = (props) => {
           title={expense.title}
           amount={expense.amount}
           date={expense.date}
-          rem={expense.remaning}
-          time={expense.time}
         />
       ))}
     </ul>

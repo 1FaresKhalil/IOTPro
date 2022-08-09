@@ -7,20 +7,20 @@ import AuthContext from "../../store/auth-context";
 
 const emailReducer = (state, action) => {
   if (action.type === "USER_INPUT") {
-    return { value: action.val, isValid: action.val.trim().length > 6 };
+    return { value: action.val, isValid: action.val.trim().length > 0 };
   }
   if (action.type === "INPUT_BLUR") {
-    return { value: state.value, isValid: state.value.trim().length > 6 };
+    return { value: state.value, isValid: state.value.trim().length > 0 };
   }
   return { value: "", isValid: false };
 };
 
 const passwordReducer = (state, action) => {
   if (action.type === "USER_INPUT") {
-    return { value: action.val, isValid: action.val.trim().length > 6 };
+    return { value: action.val, isValid: action.val.trim().length > 3 };
   }
   if (action.type === "INPUT_BLUR") {
-    return { value: state.value, isValid: state.value.trim().length > 6 };
+    return { value: state.value, isValid: state.value.trim().length > 3 };
   }
   return { value: "", isValid: false };
 };
@@ -86,7 +86,28 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    authCtx.onLogin(emailState.value, passwordState.value);
+
+    fetch("http://localhost:4000/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: emailState.value,
+        password: passwordState.value,
+      }),
+    })
+      .then((res) => {
+        if (res.status !== 200) {
+          throw new Error("Invalid credentials");
+        }
+
+        return res;
+      })
+      .then((res) => res.json())
+      .then((res) => {
+        authCtx.onLogin(res.id, res.name, res.password);
+      });
   };
 
   return (

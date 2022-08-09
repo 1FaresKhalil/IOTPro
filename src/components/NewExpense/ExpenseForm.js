@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
@@ -7,6 +7,9 @@ const ExpenseForm = (props) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [time, setTime] = useState("");
   const [remaning, setRemaning] = useState("");
+  const [line, setLine] = useState(1);
+  const [lines, setLines] = useState([]);
+
   const titleChangeHandler = (event) => {
     setEnteredTitle(event.target.value);
   };
@@ -16,22 +19,30 @@ const ExpenseForm = (props) => {
   const amountChangeHandler = (event) => {
     setEnteredAmount(event.target.value);
   };
-  const timeChangeHandler = (event) => {
-    setTime(event.target.value);
+  const lineChangeHandler = (e) => {
+    const val = e.target.value;
+    setLine(parseInt(val));
   };
-  const remaningChangeHandler = (event) => {
-    setRemaning(event.target.value);
-  };
+
+  useEffect(() => {
+    fetch("http://localhost:4000/lines")
+      .then((res) => res.json())
+      .then((res) => {
+        setLines(res);
+      });
+  }, []);
+
   const submitHandler = (event) => {
     event.preventDefault();
     const expenseData = {
-      title: enteredTitle,
-      amount: +enteredAmount,
-      date: new Date(enteredDate),
-      time: time,
-      remaning: remaning,
+      operation_name: enteredTitle,
+      quantity: +enteredAmount,
+      production_line_id: line,
+      user_id: parseInt(localStorage.getItem("id")),
+      timestamp: new Date(enteredDate),
     };
     props.onSaveExpense(expenseData);
+
     setEnteredTitle("");
     setEnteredAmount("");
     setEnteredDate("");
@@ -51,35 +62,22 @@ const ExpenseForm = (props) => {
             />
           </div>
           <div className="new-expense__control">
-            <label>Time Taken</label>
-            <input
-              value={time}
-              type="number"
-              min="0.01"
-              step="0.01"
-              onChange={timeChangeHandler}
-            />
-          </div>
-          <div className="new-expense__control">
-            <label>Remaining Amount</label>
-            <input
-              value={remaning}
-              type="number"
-              min="0.01"
-              step="0.01"
-              onChange={remaningChangeHandler}
-            />
-          </div>
-
-          <div className="new-expense__control">
-            <label>Done Amount</label>
+            <label>Quantity</label>
             <input
               value={enteredAmount}
               type="number"
-              min="0.01"
-              step="0.01"
+              min="1"
+              step="1"
               onChange={amountChangeHandler}
             />
+          </div>
+          <div className="new-expense__control">
+            <label>Production Line</label>
+            <select onChange={lineChangeHandler}>
+              {lines.map((l) => (
+                <option value={l.id}>{l.name}</option>
+              ))}
+            </select>
           </div>
           <div className="new-expense__control">
             <label>Date</label>
